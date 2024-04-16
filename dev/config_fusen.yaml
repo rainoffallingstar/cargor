@@ -9,9 +9,15 @@ flat_first.Rmd:
   - R/cargo_test.R
   - R/install_cargo.R
   - R/rust_install.R
+  - R/rust_uninstall.R
+  - R/rust_update.R
+  - R/rustc_rs.R
   - R/uninstall_cargo.R
   tests:
   - tests/testthat/test-rust_install.R
+  - tests/testthat/test-rust_update.R
+  - tests/testthat/test-rust_uninstall.R
+  - tests/testthat/test-rustc_rs.R
   - tests/testthat/test-cargo_new.R
   - tests/testthat/test-cargo_build.R
   - tests/testthat/test-cargo_run.R

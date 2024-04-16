@@ -50,8 +50,41 @@ rust_install()
 
   
 
+# rust_update
+
+    
+
   
 
+```{r example-rust_update}
+
+```
+
+  
+
+# rust_uninstall
+
+    
+
+  
+
+```{r example-rust_uninstall}
+
+```
+
+  
+
+# rustc_rs
+
+    
+
+  
+
+```{r example-rustc_rs}
+
+```
+
+  
 
 # cargo_new
 

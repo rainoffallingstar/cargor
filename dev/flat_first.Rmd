@@ -73,7 +73,87 @@ test_that("rust_install works", {
   expect_true(inherits(rust_install, "function")) 
 })
 ```
+
+# rust_update
+    
+```{r function-rust_update}
+#' rust_update
+#' 
+#' update rust in linux and macos
+#' 
+#' @return null
+#' 
+#' @export
+rust_update <- function(){
+    system(command = "rustup update")
+}
+```
   
+```{r example-rust_update}
+
+```
+  
+```{r tests-rust_update}
+test_that("rust_update works", {
+  expect_true(inherits(rust_update, "function")) 
+})
+```
+
+# rust_uninstall
+    
+```{r function-rust_uninstall}
+#' rust_uninstall
+#' 
+#' uninstall rust in linux and macos
+#' 
+#' @return null
+#' 
+#' @export
+rust_uninstall <- function(){
+    system(command = "rustup self uninstall")
+}
+```
+  
+```{r example-rust_uninstall}
+
+```
+  
+```{r tests-rust_uninstall}
+test_that("rust_uninstall works", {
+  expect_true(inherits(rust_uninstall, "function")) 
+})
+```
+
+# rustc_rs
+    
+```{r function-rustc_rs}
+#' rustc_rs
+#' 
+#' compile a single rs file by rustc
+#' @param rsfile chr a rs file in its dir
+#' @return rsfile
+#' 
+#' @export
+rustc_rs <- function(rsfile){
+  if (file.exists(rsfile)){
+    system(command = glue::glue("rustc {rsfile}"))
+  } else {
+    stop("check your files dir")
+  }
+  return(rsfile)
+}
+```
+  
+```{r example-rustc_rs}
+
+```
+  
+```{r tests-rustc_rs}
+test_that("rustc_rs works", {
+  expect_true(inherits(rustc_rs, "function")) 
+})
+```
+
 
 # cargo_new
     
@@ -91,11 +171,7 @@ test_that("rust_install works", {
 cargo_new <- function(project,lib = FALSE,root = "."){
   
   message(glue::glue("you are now creating rust project in {getwd()}"))
-  if (!lib){
-    lib <- "--lib"
-  }else {
-    lib <- ""
-  }
+  
   dir_check <- dir.exists(root)
   
   if (!dir_check){
@@ -108,7 +184,12 @@ cargo_new <- function(project,lib = FALSE,root = "."){
     project <- glue::glue("{root}/{project}")
   }
   message(glue::glue("creating application as {project}"))
-  commandline <- glue::glue("cargo new {project} {lib}")
+  if (lib){
+    lib <- "--lib"
+    commandline <- glue::glue("cargo new {project} {lib}")
+  }else {
+    commandline <- glue::glue("cargo new {project}")
+  }
   system(command = commandline)
   return(project)
 }

@@ -15,11 +15,7 @@
 cargo_new <- function(project,lib = FALSE,root = "."){
   
   message(glue::glue("you are now creating rust project in {getwd()}"))
-  if (!lib){
-    lib <- "--lib"
-  }else {
-    lib <- ""
-  }
+  
   dir_check <- dir.exists(root)
   
   if (!dir_check){
@@ -32,7 +28,12 @@ cargo_new <- function(project,lib = FALSE,root = "."){
     project <- glue::glue("{root}/{project}")
   }
   message(glue::glue("creating application as {project}"))
-  commandline <- glue::glue("cargo new {project} {lib}")
+  if (lib){
+    lib <- "--lib"
+    commandline <- glue::glue("cargo new {project} {lib}")
+  }else {
+    commandline <- glue::glue("cargo new {project}")
+  }
   system(command = commandline)
   return(project)
 }
