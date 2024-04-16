@@ -1,0 +1,388 @@
+---
+title: "flat_first.Rmd for working package"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- 
+Run this 'development' chunk
+
+Store every call to library() that you need to run chunks line by line, as in a classical Rmd for analysis
+-->
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+<!--
+# Description of your package
+
+This will fill the description of your package.
+Fill and run the content of this chunk, before anything else. 
+
+Note: when you will use other flat templates, this part will be in a separate file. Do not be surprised!
+--> 
+
+```{r description, eval=FALSE}
+# Describe your package
+fusen::fill_description(
+  pkg = here::here(),
+  fields = list(
+    Title = "cargoR",
+    Description = "use cargo to manage rust projects in R.",
+    `Authors@R` = c(
+       person("Yanhua", "Zheng", email = "zyh3084989256@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1103-9579"))
+  )
+)
+)
+# Define License with use_*_license()
+usethis::use_mit_license("Yanhua Zheng")
+usethis::use_readme_rmd()
+usethis::use_package("dplyr")
+usethis::use_package("fs")
+usethis::use_package("glue")
+usethis::use_package("stringr")
+usethis::use_package("readr")
+usethis::use_package("data.table")
+usethis::use_pipe()
+```
+
+# rust_install
+    
+```{r function-rust_install}
+#' rust_install
+#' 
+#' install rust in linux and macos
+#' 
+#' @return null
+#' 
+#' @export
+rust_install <- function(){
+    system(command = "curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y
+")
+}
+```
+  
+```{r example-rust_install}
+rust_install()
+```
+  
+```{r tests-rust_install}
+test_that("rust_install works", {
+  expect_true(inherits(rust_install, "function")) 
+})
+```
+  
+
+# cargo_new
+    
+```{r function-cargo_new}
+#' cargo_new
+#' 
+#' the "cargo new" command
+#' @param project chr the project names with dirs
+#' @param lib chr the "--lib" parameter 
+#' @param root chr the root dir of project,default as "."
+#' 
+#' @return project
+#' 
+#' @export
+cargo_new <- function(project,lib = FALSE,root = "."){
+  
+  message(glue::glue("you are now creating rust project in {getwd()}"))
+  if (!lib){
+    lib <- "--lib"
+  }else {
+    lib <- ""
+  }
+  dir_check <- dir.exists(root)
+  
+  if (!dir_check){
+    stop("the root dir does not exist")
+  }
+  
+  if (root == "."){
+    project <- project
+  } else {
+    project <- glue::glue("{root}/{project}")
+  }
+  message(glue::glue("creating application as {project}"))
+  commandline <- glue::glue("cargo new {project} {lib}")
+  system(command = commandline)
+  return(project)
+}
+```
+  
+```{r example-cargo_new}
+hello_world <- cargo_new("dev/hello_world")
+```
+  
+
+```{r tests-cargo_new}
+test_that("cargo_new works", {
+  expect_true(inherits(cargo_new, "function")) 
+})
+```
+  
+# cargo_build
+    
+```{r function-cargo_build}
+#' cargo_build
+#' 
+#' the "cargo build" command
+#' @param project chr the project names with dirs
+#' @param additional chr additional parameters in build 
+#'
+#' @return project
+#'
+#' @export
+cargo_build <- function(project,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  
+  dir_check <- dir.exists(project)
+  
+  if (!dir_check){
+    stop("the project dir does not exist")
+  }
+  
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cd {project} && cargo build {additional}")
+  }else{
+    commandline <- glue::glue("cd {project} && cargo build")
+  }
+  system(command = commandline)
+  return(project)
+    
+}
+```
+  
+```{r example-cargo_build}
+cargo_build(hello_world)
+```
+  
+```{r tests-cargo_build}
+test_that("cargo_build works", {
+  expect_true(inherits(cargo_build, "function")) 
+})
+```
+
+# cargo_run
+    
+```{r function-cargo_run}
+#' cargo_run
+#' 
+#' the "cargo run "command
+#'  @param project chr the project names with dirs
+#' @param additional chr additional parameters in build 
+#'
+#' @return project
+#'
+#' @export
+cargo_run <- function(project,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  
+  dir_check <- dir.exists(project)
+  
+  if (!dir_check){
+    stop("the project dir does not exist")
+  }
+  
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cd {project} && cargo run {additional}")
+  }else {
+   commandline <- glue::glue("cd {project} && cargo run")
+  }
+  system(command = commandline)
+  return(project)
+    
+}
+```
+  
+```{r example-cargo_run}
+cargo_run(hello_world)
+```
+  
+```{r tests-cargo_run}
+test_that("cargo_run works", {
+  expect_true(inherits(cargo_run, "function")) 
+})
+```
+    
+# cargo_check
+    
+```{r function-cargo_check}
+#' cargo_check
+#' 
+#' the "cargo check "command
+#'  @param project chr the project names with dirs
+#' @param additional chr additional parameters in build 
+#'
+#' @return project
+#'
+#' @export
+cargo_check <- function(project,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  
+  dir_check <- dir.exists(project)
+  
+  if (!dir_check){
+    stop("the project dir does not exist")
+  }
+  
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cd {project} && cargo check {additional}")
+  }else {
+    commandline <- glue::glue("cd {project} && cargo check")
+  }
+  system(command = commandline)
+  return(project)
+    
+}
+```
+  
+```{r example-cargo_check}
+cargo_check(hello_world)
+```
+  
+```{r tests-cargo_check}
+test_that("cargo_check works", {
+  expect_true(inherits(cargo_check, "function")) 
+})
+```
+    
+# cargo_test
+    
+```{r function-cargo_test}
+#' cargo_test
+#' 
+#' the "cargo test "command
+#'  @param project chr the project names with dirs
+#' @param additional chr additional parameters in build 
+#'
+#' @return project
+#'
+#' @export
+cargo_test <- function(project,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  
+  dir_check <- dir.exists(project)
+  
+  if (!dir_check){
+    stop("the project dir does not exist")
+  }
+  
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cd {project} && cargo test {additional}")
+  } else {
+    commandline <- glue::glue("cd {project} && cargo test")
+  }
+  system(command = commandline)
+  return(project)
+    
+}
+```
+  
+```{r example-cargo_test}
+cargo_test(hello_world)
+```
+  
+```{r tests-cargo_test}
+test_that("cargo_test works", {
+  expect_true(inherits(cargo_test, "function")) 
+})
+```
+    
+# install.cargo
+    
+```{r function-install.cargo}
+#' install.cargo
+#' 
+#' the "cargo install "command
+#' @param project chr the package names
+#' @param additional chr additional parameters in build 
+#'
+#' @return null
+#'
+#' @export
+install.cargo <- function(project,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  for (i in project){
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cargo install {i} {additional}")
+  }else {
+    commandline <- glue::glue("cargo install {i}")
+  }
+  system(command = commandline)
+  }
+  return(project)
+    
+}
+```
+  
+```{r example-install.cargo}
+
+```
+  
+```{r tests-install.cargo}
+test_that("install.cargo works", {
+  expect_true(inherits(install.cargo, "function")) 
+})
+```
+    
+# uninstall.cargo
+    
+```{r function-uninstall.cargo}
+#' uninstall.cargo
+#' 
+#' the "cargo uninstall "command
+#' @param project chr the package names
+#' @param additional chr additional parameters in build 
+#'
+#' @return null
+#'
+#' @export
+uninstall.cargo <- function(project,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  for (i in project){
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cargo uninstall {i} {additional}")
+  }else {
+    commandline <- glue::glue("cargo uninstall {i}")
+  }
+  system(command = commandline)
+  }
+  return(project)
+    
+}
+```
+  
+```{r example-uninstall.cargo}
+
+```
+  
+```{r tests-uninstall.cargo}
+test_that("uninstall.cargo works", {
+  expect_true(inherits(uninstall.cargo, "function")) 
+})
+```
+
+<!-- 
+# Inflate your package
+
+You're one inflate from paper to box.
+Build your package from this very Rmd using `fusen::inflate()` 
+-->
+
+
+```{r development-inflate, eval=FALSE}
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_first.Rmd")
+```
+
+<!-- 
+- Verify your `"DESCRIPTION"` file has been updated
+- Verify your function is in `"R/"` directory
+- Verify your test is in `"tests/testthat/"` directory
+- Verify this Rmd appears in `"vignettes/"` directory 
+-->
