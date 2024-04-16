@@ -193,6 +193,18 @@ cargo_test("dev/hello_world")
 
   
 
+# cargo_add
+
+    
+
+  
+
+```{r example-cargo_add}
+
+```
+
+  
+
 <!-- 
 
 # Inflate your package

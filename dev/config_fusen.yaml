@@ -2,6 +2,7 @@ flat_first.Rmd:
   path: dev/flat_first.Rmd
   state: active
   R:
+  - R/cargo_add.R
   - R/cargo_build.R
   - R/cargo_check.R
   - R/cargo_doc.R
@@ -27,6 +28,7 @@ flat_first.Rmd:
   - tests/testthat/test-install_cargo.R
   - tests/testthat/test-uninstall_cargo.R
   - tests/testthat/test-cargo_doc.R
+  - tests/testthat/test-cargo_add.R
   vignettes: vignettes/get-started.Rmd
   inflate:
     flat_file: dev/flat_first.Rmd

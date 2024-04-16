@@ -490,6 +490,47 @@ test_that( "cargo_doc works", {
 
 ```
 
+# cargo_add
+    
+```{r function-cargo_add}
+#' cargo_add
+#' 
+#' the "cargo add " command
+#' @param project chr the project names with dirs
+#' @param package chr the package need to used
+#' @param additional chr additional parameters in build 
+#' @return web
+#' 
+#' @export 
+cargo_add <- function(project,package,additional = NULL){
+   message(glue::glue("you are now building rust project in {project}"))
+  
+  dir_check <- dir.exists(project)
+  if (!dir_check){
+    stop("the project dir does not exist")
+  }
+  if (!is.null(additional)) {
+   commandline <- glue::glue("cd {project} && cargo add {package} {additional}")
+  } else {
+    commandline <- glue::glue("cd {project} && cargo add {package}")
+  }
+  system(command = commandline)
+  return(project)
+    
+}
+```
+  
+```{r example-cargo_add}
+
+```
+  
+```{r tests-cargo_add}
+test_that( "cargo_add works", {
+  expect_true(inherits (cargo_add, "function")) 
+})
+```
+
+
 <!-- 
 # Inflate your package
 
