@@ -8,7 +8,7 @@
 #' 
 #' @export
 rustc_rs <- function(rsfile){
-  if (file.exist(rsfile)){
+  if (file.exists(rsfile)){
     system(command = glue::glue("rustc {rsfile}"))
   } else {
     stop("check your files dir")

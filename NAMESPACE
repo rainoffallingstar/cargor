@@ -3,6 +3,7 @@
 export("%>%")
 export(cargo_build)
 export(cargo_check)
+export(cargo_doc)
 export(cargo_new)
 export(cargo_run)
 export(cargo_test)
