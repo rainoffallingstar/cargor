@@ -1,0 +1,29 @@
+flat_first.Rmd:
+  path: dev/flat_first.Rmd
+  state: active
+  R:
+  - R/cargo_build.R
+  - R/cargo_check.R
+  - R/cargo_new.R
+  - R/cargo_run.R
+  - R/cargo_test.R
+  - R/install_cargo.R
+  - R/rust_install.R
+  - R/uninstall_cargo.R
+  tests:
+  - tests/testthat/test-rust_install.R
+  - tests/testthat/test-cargo_new.R
+  - tests/testthat/test-cargo_build.R
+  - tests/testthat/test-cargo_run.R
+  - tests/testthat/test-cargo_check.R
+  - tests/testthat/test-cargo_test.R
+  - tests/testthat/test-install_cargo.R
+  - tests/testthat/test-uninstall_cargo.R
+  vignettes: vignettes/get-started.Rmd
+  inflate:
+    flat_file: dev/flat_first.Rmd
+    vignette_name: Get started
+    open_vignette: true
+    check: true
+    document: true
+    overwrite: ask

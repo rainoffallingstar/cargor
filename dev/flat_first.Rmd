@@ -158,7 +158,7 @@ cargo_build <- function(project,additional = NULL){
 ```
   
 ```{r example-cargo_build}
-cargo_build(hello_world)
+cargo_build("dev/hello_world")
 ```
   
 ```{r tests-cargo_build}
@@ -200,7 +200,7 @@ cargo_run <- function(project,additional = NULL){
 ```
   
 ```{r example-cargo_run}
-cargo_run(hello_world)
+cargo_run("dev/hello_world")
 ```
   
 ```{r tests-cargo_run}
@@ -242,7 +242,7 @@ cargo_check <- function(project,additional = NULL){
 ```
   
 ```{r example-cargo_check}
-cargo_check(hello_world)
+cargo_check("dev/hello_world")
 ```
   
 ```{r tests-cargo_check}
@@ -284,7 +284,7 @@ cargo_test <- function(project,additional = NULL){
 ```
   
 ```{r example-cargo_test}
-cargo_test(hello_world)
+cargo_test("dev/hello_world")
 ```
   
 ```{r tests-cargo_test}
@@ -293,10 +293,10 @@ test_that("cargo_test works", {
 })
 ```
     
-# install.cargo
+# install_cargo
     
-```{r function-install.cargo}
-#' install.cargo
+```{r function-install_cargo}
+#' install_cargo
 #' 
 #' the "cargo install "command
 #' @param project chr the package names
@@ -305,7 +305,7 @@ test_that("cargo_test works", {
 #' @return null
 #'
 #' @export
-install.cargo <- function(project,additional = NULL){
+install_cargo <- function(project,additional = NULL){
    message(glue::glue("you are now building rust project in {project}"))
   for (i in project){
   if (!is.null(additional)) {
@@ -320,20 +320,20 @@ install.cargo <- function(project,additional = NULL){
 }
 ```
   
-```{r example-install.cargo}
+```{r example-install_cargo}
 
 ```
   
-```{r tests-install.cargo}
-test_that("install.cargo works", {
-  expect_true(inherits(install.cargo, "function")) 
+```{r tests-install_cargo}
+test_that("install_cargo works", {
+  expect_true(inherits(install_cargo, "function")) 
 })
 ```
     
-# uninstall.cargo
+# uninstall_cargo
     
-```{r function-uninstall.cargo}
-#' uninstall.cargo
+```{r function-uninstall_cargo}
+#' uninstall_cargo
 #' 
 #' the "cargo uninstall "command
 #' @param project chr the package names
@@ -342,7 +342,7 @@ test_that("install.cargo works", {
 #' @return null
 #'
 #' @export
-uninstall.cargo <- function(project,additional = NULL){
+uninstall_cargo <- function(project,additional = NULL){
    message(glue::glue("you are now building rust project in {project}"))
   for (i in project){
   if (!is.null(additional)) {
@@ -357,13 +357,13 @@ uninstall.cargo <- function(project,additional = NULL){
 }
 ```
   
-```{r example-uninstall.cargo}
+```{r example-uninstall_cargo}
 
 ```
   
-```{r tests-uninstall.cargo}
-test_that("uninstall.cargo works", {
-  expect_true(inherits(uninstall.cargo, "function")) 
+```{r tests-uninstall_cargo}
+test_that("uninstall_cargo works", {
+  expect_true(inherits(uninstall_cargo, "function")) 
 })
 ```
 
