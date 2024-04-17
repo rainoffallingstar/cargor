@@ -531,7 +531,31 @@ test_that( "cargo_add works", {
   expect_true(inherits (cargo_add, "function")) 
 })
 ```
+# typst_install
+    
+```{r function-typst_install}
+#' typst_install
+#' 
+#' install typst in cargo
+#' 
+#'
+#' @return null
+#'
+#' @export
+typst_install <- function(){
+   install_cargo("--git https://github.com/typst/typst --locked typst-cli")
+}
+```
+  
+```{r example-typst_install}
 
+```
+  
+```{r tests-typst_install}
+test_that("typst_install works", {
+  expect_true(inherits(typst_install, "function")) 
+})
+```
 
 <!-- 
 # Inflate your package

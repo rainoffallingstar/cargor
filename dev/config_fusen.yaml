@@ -14,6 +14,7 @@ flat_first.Rmd:
   - R/rust_uninstall.R
   - R/rust_update.R
   - R/rustc_rs.R
+  - R/typst_install.R
   - R/uninstall_cargo.R
   tests:
   - tests/testthat/test-rust_install.R
@@ -29,6 +30,7 @@ flat_first.Rmd:
   - tests/testthat/test-uninstall_cargo.R
   - tests/testthat/test-cargo_doc.R
   - tests/testthat/test-cargo_add.R
+  - tests/testthat/test-typst_install.R
   vignettes: vignettes/get-started.Rmd
   inflate:
     flat_file: dev/flat_first.Rmd
