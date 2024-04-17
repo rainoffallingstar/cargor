@@ -9,19 +9,21 @@
 #' @return web
 #' 
 #' @export 
-cargo_add <- function(project,package,additional = NULL){
+cargo_add <- function(package,project = ".",additional = NULL){
    message(glue::glue("you are now building rust project in {project}"))
   
   dir_check <- dir.exists(project)
   if (!dir_check){
     stop("the project dir does not exist")
   }
-  if (!is.null(additional)) {
-   commandline <- glue::glue("cd {project} && cargo add {package} {additional}")
+  for(i in package){
+    if (!is.null(additional)) {
+   commandline <- glue::glue("cd {project} && cargo add {i} {additional}")
   } else {
-    commandline <- glue::glue("cd {project} && cargo add {package}")
+    commandline <- glue::glue("cd {project} && cargo add {i}")
   }
   system(command = commandline)
+  }
   return(project)
     
 }

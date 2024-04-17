@@ -4,12 +4,12 @@
 \alias{cargo_add}
 \title{cargo_add}
 \usage{
-cargo_add(project, package, additional = NULL)
+cargo_add(package, project = ".", additional = NULL)
 }
 \arguments{
-\item{project}{chr the project names with dirs}
-
 \item{package}{chr the package need to used}
+
+\item{project}{chr the project names with dirs}
 
 \item{additional}{chr additional parameters in build}
 }
