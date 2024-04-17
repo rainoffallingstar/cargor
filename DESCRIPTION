@@ -7,8 +7,10 @@ Authors@R:
 Description: use cargo to manage rust projects in R.
 License: MIT + file LICENSE
 Imports: 
+    fs,
     glue,
-    magrittr
+    magrittr,
+    stringr
 Suggests: 
     knitr,
     rmarkdown,

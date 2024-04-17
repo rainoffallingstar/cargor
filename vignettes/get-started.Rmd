@@ -217,6 +217,18 @@ cargo_test("dev/hello_world")
 
   
 
+# typst_compile
+
+    
+
+  
+
+```{r example-typst_compile}
+
+```
+
+  
+
 <!-- 
 
 # Inflate your package
